@@ -1,0 +1,71 @@
+<html>
+<head>
+  <title> Javascript Guessing Game </title>
+<style>
+h1 {color: green; box-shadow: 0px 0px 20px white; text-align: center; background: linear-gradient(#fac, #A1C2F5); text-transform: uppercase; margin: 15% 10% 18% 10%}
+
+img {border: solid; background-size: auto; margin: 100px 180px; border-radius: 50px;}
+
+body {background: linear-gradient(100deg, red, blue)}
+
+button {text-transform: uppercase; box-shadow: 0px 5px 20px silver; border-radius: 7px; padding: 2em 4em; font-size: 12px; position: absolute; right: 40%; background: #7d97ad; color: white; cursor: pointer;}
+</style>
+</head>
+<body>
+  <h1> Guess the right color to change the background </h1>
+  <button type="button" id = "button" onclick = "do_game()"> Start Game </button>
+<!--  <img src = "https://media.giphy.com/media/DuED5FMzrRw9G/giphy.gif"> -->
+ <script>
+ var target;
+var guess_input_text;
+var guess_input;
+var finished = false;
+var guesses = 0;
+var colors = ["red", "black", "magenta", "beige", "blue", "brown", "yellow", "orange", "green", "grey"];
+
+
+function do_game() {
+      colors.sort();
+      var random_number = Math.random() * (colors.length-1);
+      var random_number_integer = Math.floor(random_number);
+      target = random_number_integer;
+      color = colors[target];
+      /*alert (color);*/
+
+          while (!finished) {
+            guess_input_text = prompt("I am thinking of one of these colors:\n\n" + colors.sort() +
+            "\n\n What color am I thinking of?");
+            guess_input = guess_input_text;
+            guesses += 1;
+            finished = check_guess();
+            }
+          }
+function check_guess() {
+    if (colors.indexOf(guess_input) < 0) {
+      alert( "The entered color is not in the above list \n\n" +
+     "Please choose a color from the above list")
+     return false;
+   }
+    if (guess_input > color) {
+      alert("Your input is alphabetically higher than mine!")
+      return false;
+    }
+    if (guess_input < color) {
+      alert("Your input is alphabetically smaller than mine!")
+     return false;
+    }
+    if (guess_input == color) {
+      document.body.style.background = color;
+      alert("You got it! The color was " + color +
+            ".\n\nIt took you " + guesses +
+            " guesses to get the color!");
+      alert("REFRESH PAGE & PRESS 'START GAME' TO START OVER!")
+      var element = document.getElementById("button");
+element.parentNode.removeChild(element)
+
+    return true;
+    }
+  }
+ </script>
+</body>
+</html>
